@@ -86,7 +86,7 @@ cat <<"EOF" >/etc/init.d/little-backup-box
 USE_PROCD=1
 START=99
 STOP=1
-SCRIPT=/root/openwrt-source-backup.sh
+SCRIPT=/root/source-backup.sh
 
 start_service() {
   local env
