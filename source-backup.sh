@@ -3,6 +3,8 @@ echo "Starting SD card backup"
 mkdir -p $STORAGE_MOUNT_POINT
 mkdir -p $SOURCE_MOUNT_POINT
 
+LOG_FILE=${LOG_FILE:-"/var/log/tiny-backup-box.log"}
+
 MOUNTED_STORAGE=`findmnt -rno SOURCE $STORAGE_MOUNT_POINT`
 if [ -z "$MOUNTED_STORAGE" ]; then
   echo "Storage device not mounted, start polling..."
@@ -45,7 +47,7 @@ cd
 # Set the backup path
 BACKUP_PATH="$STORAGE_MOUNT_POINT"/"$ID"
 
-rm -f /var/log/little-backup-box.log
+rm -f $LOG_FILE
 
 if [ $STOP_LUCI_FOR_BACKUP = true ]; then
     echo "Stopping LUCI to free resources"
@@ -59,7 +61,7 @@ echo "Starting backup"
 EXIT_CODE=1
 while [ ! $EXIT_CODE = 0 ]
 do
-    RSYNC_OUTPUT=$(rsync -avh --stats --exclude "*.id" --log-file=/var/log/little-backup-box.log "$SOURCE_MOUNT_POINT"/ "$BACKUP_PATH")
+    RSYNC_OUTPUT=$(rsync -avh --stats --exclude "*.id" --log-file="$LOG_FILE" "$SOURCE_MOUNT_POINT"/ "$BACKUP_PATH")
     EXIT_CODE=$?
     if [ ! $EXIT_CODE = 0 ]; then
       echo "Backup failed, restarting backup"
