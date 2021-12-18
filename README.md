@@ -1,7 +1,7 @@
 # Tiny Backup Box
 A tool for photo backup for devices running OpenWRT based on / inspired by the [Little Backup Box project](https://github.com/dmpop/little-backup-box/).
 
-Unlike the Little Backup Box however, only the SD card to USB storage backup (i.e. source backup) option is implemented.
+Unlike the Little Backup Box however, only the SD card to USB storage backup (i.e. source backup) option is currently implemented.
 
 Features:
 * Automatically and incremental SD card backup to prevent losing photos due to lost or damaged SD cards
