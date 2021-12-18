@@ -1,2 +1,2 @@
-# tiny-backup-box
-A tool for backing up SD cards for devices running OpenWRT inspired by the little-backup-box project.
+# Tiny Backup Box
+A tool for backing up SD cards for devices running OpenWRT based on / inspired by the [Little Backup Box project](https://github.com/dmpop/little-backup-box/).
