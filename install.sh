@@ -53,7 +53,7 @@ if [[ -z "$OVERLAY_SETUP" ]] && [ ! -z "$OVERLAY_DEV" ]; then
   mount ${DEVICE} /mnt
   tar -C /tmp/cproot -cvf - . | tar -C /mnt -xf -
   umount /tmp/cproot /mnt
-  echo "Extroot set up. Rebooting. Rerun the script after boot to continue the setup."
+  echo "Extroot set up complete, rebooting. Rerun the script after boot to continue the setup."
   sleep 5
   reboot
 fi
