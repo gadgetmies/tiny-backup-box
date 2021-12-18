@@ -16,6 +16,7 @@ SOURCE_MOUNT_POINT=/mnt/source
 OVERLAY_DEV=/dev/sda2 # Remove this if you have already set up an extroot (e.g. by running this script) or if you do not need the extroot setup
 
 CHECK_STORAGE_ON_BOOT=true
+SERVICE_LOG_FILE=/var/log/tiny-backup-box.log
 
 opkg update
 opkg install block-mount kmod-usb-storage mount-utils
@@ -118,6 +119,7 @@ echo '  option SOURCE_MOUNT_POINT "$SOURCE_MOUNT_POINT" # Mount point of the sou
 echo '  option POWER_OFF false # Set to false to disable automatic power off after backup' >>/etc/config/tiny-backup-box
 echo '  option UNMOUNT_STORAGE false # Set to true to unmount storage device after backup' >>/etc/config/tiny-backup-box
 echo '  option STOP_LUCI_FOR_BACKUP true # Stop LUCI while running backup to free memory' >>/etc/config/tiny-backup-box
+echo '  option LOG_FILE "$SERVICE_LOG_FILE" # Log file location. The backup process will be reported here' >>/etc/config/tiny-backup-box
 
 /etc/init.d/tiny-backup-box enable
 /etc/init.d/tiny-backup-box start
