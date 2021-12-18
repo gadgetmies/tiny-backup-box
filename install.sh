@@ -80,7 +80,7 @@ service fstab boot
 # Install the tools and services needed for the backup
 opkg install rsync
 
-cat <<"EOF" >/etc/init.d/little-backup-box
+cat <<"EOF" >/etc/init.d/tiny-backup-box
 #!/bin/sh /etc/rc.common
 
 USE_PROCD=1
@@ -99,7 +99,7 @@ start_service() {
     }
   }
 
-  config_load little-backup-box
+  config_load tiny-backup-box
 
   procd_set_param env $env
   procd_set_param command /bin/sh "${SCRIPT}"
@@ -110,14 +110,14 @@ start_service() {
 }
 EOF
 
-echo 'config main main' >/etc/config/little-backup-box
-echo '  option STORAGE_DEV "$STORAGE_DEV" # Name of the storage device' >>/etc/config/little-backup-box
-echo '  option STORAGE_MOUNT_POINT "$STORAGE_MOUNT_POINT" # Mount point of the storage device' >>/etc/config/little-backup-box
-echo '  option SOURCE_DEV "$SOURCE_DEV" # Name of the source device' >>/etc/config/little-backup-box
-echo '  option SOURCE_MOUNT_POINT "$SOURCE_MOUNT_POINT" # Mount point of the source device' >>/etc/config/little-backup-box
-echo '  option POWER_OFF false # Set to false to disable automatic power off after backup' >>/etc/config/little-backup-box
-echo '  option UNMOUNT_STORAGE false # Set to true to unmount storage device after backup' >>/etc/config/little-backup-box
-echo '  option STOP_LUCI_FOR_BACKUP true # Stop LUCI while running backup to free memory' >>/etc/config/little-backup-box
+echo 'config main main' >/etc/config/tiny-backup-box
+echo '  option STORAGE_DEV "$STORAGE_DEV" # Name of the storage device' >>/etc/config/tiny-backup-box
+echo '  option STORAGE_MOUNT_POINT "$STORAGE_MOUNT_POINT" # Mount point of the storage device' >>/etc/config/tiny-backup-box
+echo '  option SOURCE_DEV "$SOURCE_DEV" # Name of the source device' >>/etc/config/tiny-backup-box
+echo '  option SOURCE_MOUNT_POINT "$SOURCE_MOUNT_POINT" # Mount point of the source device' >>/etc/config/tiny-backup-box
+echo '  option POWER_OFF false # Set to false to disable automatic power off after backup' >>/etc/config/tiny-backup-box
+echo '  option UNMOUNT_STORAGE false # Set to true to unmount storage device after backup' >>/etc/config/tiny-backup-box
+echo '  option STOP_LUCI_FOR_BACKUP true # Stop LUCI while running backup to free memory' >>/etc/config/tiny-backup-box
 
-/etc/init.d/little-backup-box enable
-/etc/init.d/little-backup-box start
+/etc/init.d/tiny-backup-box enable
+/etc/init.d/tiny-backup-box start
