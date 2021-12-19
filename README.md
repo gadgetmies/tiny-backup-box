@@ -10,7 +10,7 @@ For (potentially) suitable hardware, take a look at the [OpenWRT Table of Hardwa
 * Ability to create a small, lightweight and portable backup solution suitable for travel use
 * Fully customisable backup solution (at least to the extent enabled by the hardwire)
 
-The scripts have been created and tested on the Ravpower Filehub Plus (RP-WD03) running the OpenWRT firmware, but should work also on other devices running OpenWRT (YMMV). In order to use the RP-WD03, you need to [install OpenWRT on the device](https://openwrt.org/toh/ravpower/rp-wd03#installation).
+The scripts have been created and tested on the **Ravpower Filehub Plus (RP-WD03)** running the OpenWRT firmware, but should work also on other devices running OpenWRT (YMMV). In order to use the RP-WD03, you need to [install OpenWRT on the device](https://openwrt.org/toh/ravpower/rp-wd03#installation).
 
 ## Installation
 **Warning! By following these instructions, you risk bricking your device and data loss on the storage devices. Proceed with caution! Also note that some knowledge of Linux devices and filesystems is required.**
