@@ -3,6 +3,8 @@ A tool for photo backup for devices running OpenWRT based on / inspired by the [
 
 Unlike the Little Backup Box however, only the SD card to USB storage backup (i.e. source backup) option is currently implemented.
 
+For (potentially) suitable hardware, take a look at the [OpenWRT Table of Hardware](https://openwrt.org/toh/views/toh_battery-powered?datasrt=usb+ports&dataflt%5BUSB+ports_*%7E%5D=1)
+
 ## Features
 * Automatically and incremental SD card backup to prevent losing photos due to lost or damaged SD cards
 * Ability to create a small, lightweight and portable backup solution suitable for travel use
