@@ -60,7 +60,7 @@ if [[ -z "$OVERLAY_SETUP" ]] && [ ! -z "$OVERLAY_DEV" ]; then
 fi
 
 opkg update
-opkg install kmod-fs-exfat libblkid
+opkg install kmod-fs-exfat kmod-fs-vfat libblkid
 
 # Make the storage disk automount.
 mkdir -p $STORAGE_MOUNT_POINT
