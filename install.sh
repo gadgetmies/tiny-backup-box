@@ -109,7 +109,7 @@ start_service() {
   config_load tiny-backup-box
 
   procd_set_param env $env
-  procd_set_param command /bin/sh "${SCRIPT}"
+  procd_set_param command /bin/sh "${SCRIPT} >> ${LOG_FILE}"
   procd_set_param stdout 1 # forward stdout of the command to logd
   procd_set_param stderr 1 # same for stderr
   procd_set_param respawn ${respawn_threshold:-3600} ${respawn_timeout:-5} ${respawn_retry:-5}
