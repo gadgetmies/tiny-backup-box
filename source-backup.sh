@@ -3,7 +3,7 @@ LOG_FILE=${:-"/var/log/tiny-backup-box.log"}
 # Back up previous log file
 mv $LOG_FILE $LOG_FILE.old || true
 
-echo "### Starting SD card backup at $(date)" | tee -a $LOG_FILE
+echo "### Starting SD card backup at $(date)"
 
 cat << EOF
 Using configuration:
