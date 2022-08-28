@@ -19,3 +19,9 @@ The scripts have been created and tested on the **Ravpower Filehub Plus (RP-WD03
 3. Make the install script executable: `chmod go+x install.sh`
 4. Run the install script: `./install.sh`
 5. Start backing up!
+
+## Usage
+1. If not backing up to / using exroot, connect the storage device
+1. Insert the SD card
+1. Watch the status led blink
+1. Once the backup is done the status led will turn off (and the device will be shut down if configured to do so in the config file)
