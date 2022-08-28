@@ -45,6 +45,17 @@ fi
 
 MOUNTED_SOURCE=`findmnt -rno SOURCE $SOURCE_MOUNT_POINT`
 if [ -z "$MOUNTED_SOURCE" ]; then
+	if [ $(ls -A $SOURCE_MOUNT_POINT) ]; then
+		echo "Source not mounted, but source mount point not empty. Trying to resolve issue by removing id file"
+		rm "$SOURCE_MOUNT_POINT/*.id"
+	        if [ $(ls -A $SOURCE_MOUNT_POINT) ]; then
+			echo "none" > /sys/class/leds/$STATUS_LED/trigger
+			echo "Unable to clear mount point, exiting"
+			sleep 1
+			exit 1
+		fi
+	fi
+	
 	echo "SD card not mounted, start polling..."
 
 	until [[ -e "$SOURCE_DEV" ]]; do
