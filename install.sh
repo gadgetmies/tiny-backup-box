@@ -1,13 +1,16 @@
-# Before you start:
+## Before you start:
 # Connect the backup device to the internet (also a good idea to connect it to a charger)
 # Connect an external hard disk with a exFAT partition
 # (To make an exFAT partition that mounts on MacOS, see second answer: https://unix.stackexchange.com/questions/460155/mac-os-cannot-mount-exfat-disk-created-on-ubuntu-linux)
+# Make sure the configuration in configuration section below are correct.
 
 # If you have a device with limited space, you might want to use a extroot setup (https://openwrt.org/docs/guide-user/additional-software/extroot_configuration)
 # For this you need to have a device with an ext4 partition available.
 # For example you could have a 1Tb SSD with 1G ext4 as the second partition (i.e. /dev/sdx2) and an exFAT partition
 # taking up the rest of the space as the first partition (i.e. /dev/sdx1). The partitions are ordered in this manner
 # for MacOS (perhaps also Windows?) to be able to read the exFAT partition.
+
+## Configuration section start
 
 STORAGE_DEV=/dev/sda1
 STORAGE_MOUNT_POINT=/mnt/storage
@@ -17,6 +20,9 @@ OVERLAY_DEV=/dev/sda2 # Remove this if you have already set up an extroot (e.g. 
 
 CHECK_STORAGE_ON_BOOT=true
 SERVICE_LOG_FILE=/var/log/tiny-backup-box.log
+STATUS_LED=green:wifi # Change this according to your hardware. To get a list of the available leds run: 'ls /sys/class/leds/'
+
+## Configuration section end
 
 opkg update
 opkg install block-mount kmod-usb-storage mount-utils
@@ -120,6 +126,7 @@ echo '  option POWER_OFF true # Set to false to disable automatic power off afte
 echo '  option UNMOUNT_STORAGE true # Set to true to unmount storage device after backup' >>/etc/config/tiny-backup-box
 echo '  option STOP_LUCI_FOR_BACKUP true # Stop LUCI while running backup to free memory' >>/etc/config/tiny-backup-box
 echo '  option LOG_FILE "$SERVICE_LOG_FILE" # Log file location. The backup process will be reported here' >>/etc/config/tiny-backup-box
+echo '  option STATUS_LED "$STATUS_LED" # Status led to use. See the list of available leds with: "ls /sys/class/leds/"' >>/etc/config/tiny-backup-box
 
 /etc/init.d/tiny-backup-box enable
 /etc/init.d/tiny-backup-box start
