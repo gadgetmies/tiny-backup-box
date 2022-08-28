@@ -84,7 +84,7 @@ echo "heartbeat" > /sys/class/leds/$STATUS_LED/trigger
 EXIT_CODE=1
 while [ ! $EXIT_CODE = 0 ]
 do
-    RSYNC_OUTPUT=$(rsync -avh --stats --exclude "*.id" --log-file="$LOG_FILE" "$SOURCE_MOUNT_POINT"/ "$BACKUP_PATH")
+    RSYNC_OUTPUT=$(rsync -avhW --stats --exclude "*.id" --log-file="$LOG_FILE" "$SOURCE_MOUNT_POINT"/ "$BACKUP_PATH")
     EXIT_CODE=$?
     if [ ! $EXIT_CODE = 0 ]; then
       echo "Backup failed, restarting backup"
