@@ -114,6 +114,7 @@ if [ $POWER_OFF = true ]; then
 	echo "Shutting down"
 	poweroff
 else
+  echo "default-on" > /sys/class/leds/$STATUS_LED/trigger
   until [[ ! -e "$SOURCE_DEV" ]]; do
     echo "Waiting for SD card removal..."
     sleep 30
