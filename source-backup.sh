@@ -1,9 +1,32 @@
-echo "Starting SD card backup"
+LOG_FILE=${:-"/var/log/tiny-backup-box.log"}
+
+# Back up previous log file
+mv $LOG_FILE $LOG_FILE.old || true
+
+echo "### Starting SD card backup at $(date)" | tee -a $LOG_FILE
+
+cat << EOF
+Using configuration:
+-------------------
+Storage mount point: $STORAGE_MOUNT_POINT
+Storage device: $STORAGE_DEV
+
+Source mount point: $SOURCE_MOUNT_POINT
+Source device: $SOURCE_DEV
+
+Log: $LOG_FILE
+
+Power off after backup: $POWER_OFF
+Stop LUCI while backing up: $STOP_LUCI_FOR_BACKUP
+
+Status LED: $STATUS_LED
+-------------------
+EOF
 
 mkdir -p $STORAGE_MOUNT_POINT
 mkdir -p $SOURCE_MOUNT_POINT
 
-LOG_FILE=${LOG_FILE:-"/var/log/tiny-backup-box.log"}
+echo "default-on" > /sys/class/leds/$STATUS_LED/trigger
 
 MOUNTED_STORAGE=`findmnt -rno SOURCE $STORAGE_MOUNT_POINT`
 if [ -z "$MOUNTED_STORAGE" ]; then
@@ -47,8 +70,6 @@ cd
 # Set the backup path
 BACKUP_PATH="$STORAGE_MOUNT_POINT"/"$ID"
 
-rm -f $LOG_FILE
-
 if [ $STOP_LUCI_FOR_BACKUP = true ]; then
     echo "Stopping LUCI to free resources"
     /etc/init.d/uhttpd stop
@@ -56,6 +77,8 @@ if [ $STOP_LUCI_FOR_BACKUP = true ]; then
 fi
 
 echo "Starting backup at $(date)"
+
+echo "heartbeat" > /sys/class/leds/$STATUS_LED/trigger
 
 # The RP-WD03 can easily run out of memory crashing the backup. Thus loop until the backup is successful.
 EXIT_CODE=1
@@ -83,6 +106,8 @@ umount "$SOURCE_MOUNT_POINT"
 if [ $UNMOUNT_STORAGE = true ]; then
   umount "$STORAGE_MOUNT_POINT"
 fi
+
+echo "none" > /sys/class/leds/$STATUS_LED/trigger
 
 # Power off
 if [ $POWER_OFF = true ]; then
