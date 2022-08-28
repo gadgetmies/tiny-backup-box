@@ -32,8 +32,13 @@ MOUNTED_STORAGE=`findmnt -rno SOURCE $STORAGE_MOUNT_POINT`
 if [ -z "$MOUNTED_STORAGE" ]; then
   echo "Storage device not mounted, start polling..."
 
+	SLEEP_COUNT=0
 	until [[ -e "$STORAGE_DEV" ]]; do
 		sleep 1
+		let SLEEP_COUNT++
+		if [ $(expr $SLEEP_COUNT % 60) -eq 0 ]; then 
+			echo "Still polling..." 
+		fi
 	done
 
   echo "Found storage device in $STORAGE_DEV. Mounting to $STORAGE_MOUNT_POINT"
@@ -58,8 +63,13 @@ if [ -z "$MOUNTED_SOURCE" ]; then
 	
 	echo "SD card not mounted, start polling..."
 
+	SLEEP_COUNT=0
 	until [[ -e "$SOURCE_DEV" ]]; do
 		sleep 1
+		let SLEEP_COUNT++
+		if [ $(expr $SLEEP_COUNT % 60) -eq 0 ]; then 
+			echo "Still polling..." 
+		fi
 	done
 
 	echo "Found SD card device in $SOURCE_DEV. Mounting to $SOURCE_MOUNT_POINT"
