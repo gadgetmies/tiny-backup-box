@@ -103,6 +103,7 @@ echo "Starting backup at $(date)"
 
 echo "heartbeat" > /sys/class/leds/$STATUS_LED/trigger
 
+BACKUP_START=`date %s`
 # The RP-WD03 can easily run out of memory crashing the backup. Thus loop until the backup is successful.
 EXIT_CODE=1
 while [ ! $EXIT_CODE = 0 ]
@@ -114,8 +115,10 @@ do
 	fi
 	sleep 1
 done
+BACKUP_END=`date %s`
 
 echo "Backup done at $(date)"
+echo "Backup took $((BACKUP_END-BACKUP_START)) seconds"
 
 if [ $STOP_LUCI_FOR_BACKUP = true ]; then
 	echo "Starting LUCI"
